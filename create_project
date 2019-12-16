@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ "$#" != 1 ]
+then
+    echo "Usage: create_project project_name"
+    exit 1
+fi
+
+USERNAME="git"
+PROJECT=$1.git
+GIT_CODE=/git_codes
+
+CODE_PATH=$GIT_CODE/$USERNAME/$PROJECT
+
+git init --bare $CODE_PATH
+
+chown $USERNAME.$USERNAME -R $CODE_PATH
+chmod 700 -R $CODE_PATH
+
+echo "Repo link: ssh://$USERNAME@localhost:2222/$GIT_CODE/$USERNAME/$PROJECT"
